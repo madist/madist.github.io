@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="Reality">
 <meta property="og:description" content="Summary of Hbase Commands">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-06-06T06:49:30.492Z">
+<meta property="og:updated_time" content="2018-06-06T08:53:42.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hbase - Shell Command">
 <meta name="twitter:description" content="Summary of Hbase Commands">
@@ -243,7 +243,29 @@
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
             <!-- excerpt --></p>
-<h2 id="PrefixFilter"><a href="#PrefixFilter" class="headerlink" title="PrefixFilter"></a>PrefixFilter</h2><blockquote>
+<h4 id="시작하기에-앞서서"><a href="#시작하기에-앞서서" class="headerlink" title="시작하기에 앞서서"></a>시작하기에 앞서서</h4><p>아래 코드의 <code>{string}</code>의 경우 여러분께서 원하시는 값으로 교체하여 사용하시면 됩니다.<br>예를 들면 다음과 같습니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan &apos;&#123;tableName&#125;&apos;, &#123;LIMIT=&gt;10&#125;</span><br></pre></td></tr></table></figure></p>
+<p>위의 예시에 만일 tableName 이 <code>UserTable</code> 라면, 위의 명령어는 다음과 같이 사용합니다.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan &apos;UserTable&apos;, &#123;LIMIT=&gt;10&#125;</span><br></pre></td></tr></table></figure></p>
+<p>본 post 는 <code>hbase shell</code> 을 사용하며 정리한 내용입니다.</p>
+<h4 id="LIMIT"><a href="#LIMIT" class="headerlink" title="LIMIT"></a>LIMIT</h4><p>출력하고자 하는 ROW 의 최대치<br><figure class="highlight bash"><figcaption><span>hbase(main):008:0</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">'&#123;tableName&#125;'</span>, &#123;LIMIT=&gt;10&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="PrefixFilter"><a href="#PrefixFilter" class="headerlink" title="PrefixFilter"></a>PrefixFilter</h4><p>Row Key Prefix 필터입니다. 키의 prefix 를 설정하여 row를 필터링합니다.</p>
+<blockquote>
+<p>Information<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Syntax:  PrefixFilter (‘&lt;row_prefix&gt;’)</span><br><span class="line">Example: PrefixFilter (‘Row’)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<figure class="highlight bash"><figcaption><span>Terminal</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scan <span class="string">'&#123;tableName&#125;'</span>, &#123;LIMIT=&gt;10,FILTER=&gt;<span class="string">"PrefixFilter('&#123;prefixKey&#125;')"</span>&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="SingleColumnValueFilter"><a href="#SingleColumnValueFilter" class="headerlink" title="SingleColumnValueFilter"></a>SingleColumnValueFilter</h4><p><code>column family</code>의  <code>qualifier</code>에 대하여, 지정한 비교연산자와 매칭하는 결과를 받도록 하는 필터입니다.</p>
+<ul>
+<li>참고사항<ul>
+<li><code>filterIfColumnMissing_boolean</code> 값이 true 일 경우, 지정한 <code>column family</code>가 존재하지 않을 경우 <code>row</code>를 반환하지 않습니다. <small>( default : false)</small></li>
+<li><code>latest_version_boolean</code> 값이 false 일 경우, 최근 데이터 뿐만아니라 이전 데이터에서도 해당 작업을 수행합니다. <small>( default : true)</small></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>Information<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Syntax:  SingleColumnValueFilter (‘&lt;family&gt;’, ‘&lt;qualifier&gt;’, &lt;compare operator&gt;, ‘&lt;comparator&gt;’, &lt;filterIfColumnMissing_boolean&gt;, &lt;latest_version_boolean&gt;)</span><br><span class="line">Syntax:  SingleColumnValueFilter (‘&lt;family&gt;’, ‘&lt;qualifier&gt;’, &lt;compare operator&gt;, ‘&lt;comparator&gt;’)</span><br><span class="line"></span><br><span class="line">Example: SingleColumnValueFilter (‘FamilyA’, ‘Column1’, &lt;=, ‘abc’, true, false)</span><br><span class="line">Example: SingleColumnValueFilter (&apos;FamilyA’, ‘Column1’, &lt;=, ‘abc’)</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+<blockquote>
 <p>Stay Huger, Stay Foolish</p>
 </blockquote>
             
