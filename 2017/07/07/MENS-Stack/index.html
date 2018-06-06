@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="naver-site-verification" content="504dae6cdfc6d7f71a626347627a0c3653cf9827"/>
+    <meta name="generator" content="Reality">
+    <title>MENS Stack - Reality</title>
+    <meta name="author" content="GiPyeong.Lee">
+    
+        <meta name="keywords" content="gipyeong,이기평,gipyeong.lee,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="여러가지 서버 스택이 있겠지만, 그 중 해보고 싶었던 MEAN Stack 을 응용하여 API 서버를 작성하였다.내가 작업할 MENS Stack 은 다음과 같다.  M (MongoDB) : NoSQL 데이터베이스이다. 도큐먼트 기반의 데이터베이스로, JSON 형태의 스킴을 작성할 것이다.E (Express.js) : 미들 웨어 작성을 위해 사용할 프레임웍이다">
+<meta name="keywords" content="Node.js,Express.js,Mongoose,Socket.io">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="MENS Stack">
+<meta property="og:url" content="https://madist.github.io/2017/07/07/MENS-Stack/index.html">
+<meta property="og:site_name" content="Reality">
+<meta property="og:description" content="여러가지 서버 스택이 있겠지만, 그 중 해보고 싶었던 MEAN Stack 을 응용하여 API 서버를 작성하였다.내가 작업할 MENS Stack 은 다음과 같다.  M (MongoDB) : NoSQL 데이터베이스이다. 도큐먼트 기반의 데이터베이스로, JSON 형태의 스킴을 작성할 것이다.E (Express.js) : 미들 웨어 작성을 위해 사용할 프레임웍이다">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-06-06T06:43:29.592Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MENS Stack">
+<meta name="twitter:description" content="여러가지 서버 스택이 있겠지만, 그 중 해보고 싶었던 MEAN Stack 을 응용하여 API 서버를 작성하였다.내가 작업할 MENS Stack 은 다음과 같다.  M (MongoDB) : NoSQL 데이터베이스이다. 도큐먼트 기반의 데이터베이스로, JSON 형태의 스킴을 작성할 것이다.E (Express.js) : 미들 웨어 작성을 위해 사용할 프레임웍이다">
+<meta name="twitter:creator" content="@OcSoonJ">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://madist.github.io/assets/images/avatar.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-1udptkpril81ozu8ifd8zpujn7ipu7lefxsiu5gxx0dpnzntdx6dusvki3ao.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-103241267-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Reality</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">GiPyeong.Lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Stay Hunger,Stay Foolish</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title" itemprop="headline">
+            MENS Stack
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-07-07T16:43:07+09:00">
+	
+		    Jul 07, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Server/">Server</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<p>우선, npm 을 이용하여 개발 환경을 셋팅하자.</p>
+<figure class="highlight bash"><figcaption><span>bash</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir api &amp;&amp; <span class="built_in">cd</span> api</span><br><span class="line">$ npm init --yes</span><br><span class="line">$ npm install --save --save-exact express body-parser mongoose</span><br></pre></td></tr></table></figure>
+<p>기본적인 개발 환경이 구성됐다면, package.json 에 사용할 패키지들의 정보를 작성한다.<br>이번에 사용하여 구현할 패키지들의 구성은 다음과 같다.</p>
+<figure class="highlight json"><figcaption><span>package.json</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"Server"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"keywords"</span>: [],</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"body-parser"</span>: <span class="string">"1.17.2"</span>,</span><br><span class="line">    <span class="attr">"express"</span>: <span class="string">"4.15.3"</span>,</span><br><span class="line">    <span class="attr">"mongoose"</span>: <span class="string">"4.11.1"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>기본적인 설정이 끝났다. 다음은 디렉터리 설정을 할 예정이다.</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><span>디렉토리 구조</span><ul class="tabs"><li class="tab active">tree</li><li class="tab">command</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Server/</span><br><span class="line">|-- config/</span><br><span class="line">|-- controllers/</span><br><span class="line">|       |-- userController.js</span><br><span class="line">|-- models/</span><br><span class="line">|       |-- userModel.js</span><br><span class="line">|-- routes/</span><br><span class="line">|       |-- userRoute.js</span><br><span class="line">|-- app.js</span><br><span class="line">|-- controllers.js</span><br><span class="line">|-- models.js</span><br><span class="line">|-- routes.js</span><br><span class="line">|__ package.js</span><br></pre></td></tr></tbody></table></figure><figure class="highlight plain" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mkdir controllers</span><br><span class="line">touch controllers/userController.js</span><br><span class="line">mkdir models</span><br><span class="line">touch models/userModel.js</span><br><span class="line">mkdir routes </span><br><span class="line">touch routes/userRoute.js</span><br><span class="line">touch app.js</span><br><span class="line">touch controllers.js</span><br><span class="line">touch models.js</span><br><span class="line">touch routes.js</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>다음은, Node.js 어플리케이션을 작성하기에 앞서 작성시의 권고사항들을 짚고 가겠다.<br>아래 스타일가이드는 <a href="http://nodeguide.com/style.html" target="_blank" rel="noopener">Felix’s Node.js Style Guide</a> 의 일부이다.<br>각 권고사항에 따른 부가 설명 혹은 사견을 달았다.</p>
+<p><strong> 1. 동기보다는 <code>비동기</code> 함수를 사용하라 </strong><br><blockquote><p>Node.js 는 쓰레드나 별도 프로세스 대신 비동기 이벤트 위주 I/O 를 사용하는 고도의 확장성을 가진 시스템이다.<br>간단한 작업을 수행하지만 접근 빈도가 높은 웹 어플리케이션에 적합하다.</p>
+<footer><strong>Shelley Powers</strong><cite>Learning Node</cite></footer></blockquote></p>
+<p><strong> 2. <code>2칸</code> 들여쓰기를 사용하라. </strong><br><blockquote><p>칸수보다는 일관성이 중요하다고 생각한다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 3. 세미콜론을 사용하라 / 세미콜론을 사용하지 마라. </strong><br><blockquote><p>근래 들어, 많은 언어들이 세미콜론 없이도 해석을 한다.<br>그치만, 나의 경우 습관이고, 명확하다고 판단하여 <code>;</code> 세미콜론을 사용한다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 4. 작은 따옴표를 사용하라. </strong><br><blockquote><p>PHP의 경우 단순 스트링의 경우 작은 따옴표를 이용하여 작성하는게 큰 따옴표보다 성능이 더 좋다.<br>( 변수를 해석하냐 안하냐 차이라고 생각된다. 보다 자세한사항은 검색해보면 나온다.)<br>Node.js 의 경우에는 성능상의 차이라기보다는, 표현상의 차이라고 생각된다.<br>이건 작은이든, 큰 따옴표든 일관성있게만 진행하면 될 것으로 생각된다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 5. 여러 개의 변수를 정의 시에 단일 var 키워드를 사용하라 / 단일 var 키워드를 사용하지 마라. </strong><br><blockquote><p>중요한지 잘 모르겠다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 6. 상수는 모두 대문자여야 한다. </strong><br><blockquote><p>이 항목에 동의한다.</p>
+<footer><strong>Shelley Powers</strong><cite>Learning Node</cite></footer></blockquote></p>
+<p><strong> 7. 변수는 camel 표기법을 사용한다. </strong><br><blockquote><p>이 항목에 동의한다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 8. 완전 항등 연산자 (strict equality operator, ===)를 사용하라. </strong><br><blockquote><p>이 항목에 동의한다. <code>==</code> 의 경우 내가 의도치 않은 결과물을 낼 수 있다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 9. 클로저에 이름을 붙여라. </strong><br><blockquote><p><figure class="codeblock codeblock--tabbed"><figcaption><span>클로져</span><ul class="tabs"><li class="tab active">Named</li><li class="tab">UnNamed</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">req.on(‘end’, function onEnd() {</span><br><span class="line">  console.log(‘Right’);</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure><figure class="highlight plain" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">req.on(‘end’, function() {</span><br><span class="line">  console.log(‘Wrong’);</span><br><span class="line">});</span><br></pre></td></tr></tbody></table></figure></div></figure><br>function 명을 꼭 붙이자. <code>onEnd</code></p>
+<footer><strong>Felix,</strong><cite><a href="http://nodeguide.com/style.html#named-closures" target="_blank" rel="noopener">Style Guide</a></cite></footer></blockquote></p>
+<p><strong> 10. 라인 길이가 80자 이하여야 한다. </strong><br><blockquote><p>이 항목에 동의한다. 모듈화하여 분할 하는게 현명하다.</p>
+<footer><strong>Madist</strong><cite>MEAN Stack</cite></footer></blockquote></p>
+<p><strong> 11. 중괄호는 중괄호를 필요로 하는 것과 같은 줄에서 시작한다. </strong><br><blockquote><p><figure class="codeblock codeblock--tabbed"><figcaption><span>중괄호</span><ul class="tabs"><li class="tab active">SameLine</li><li class="tab">NewLine</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (true) {</span><br><span class="line">  console.log(‘winning’);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure><figure class="highlight plain" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (true) </span><br><span class="line">{</span><br><span class="line">  console.log(‘winning’);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></figure><br>이 항목에 동의한다. ( 나는 모든 코드가 11번 가이드를 따르고 있다.)</p>
+<footer><strong>Felix,</strong><cite><a href="http://nodeguide.com/style.html#braces" target="_blank" rel="noopener">Style Guide</a></cite></footer></blockquote></p>
+<p>추후 코드 작성시 최대한 위의 코딩스타일을 준수하며 작업할 예정이다.</p>
+<blockquote>
+<p>Stay Huger, Stay Foolish</p>
+</blockquote>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Express-js/">Express.js</a> <a class="tag tag--primary tag--small t-link" href="/tags/Mongoose/">Mongoose</a> <a class="tag tag--primary tag--small t-link" href="/tags/Node-js/">Node.js</a> <a class="tag tag--primary tag--small t-link" href="/tags/Socket-io/">Socket.io</a>
+
+            </div>
+        
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 GiPyeong.Lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">GiPyeong.Lee</h4>
+        
+            <div id="about-card-bio"><p>Stay Hunger,Stay Foolish</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Line Plus Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Seoul Korea
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/06/27/home/">
+                            <img class="media-image" src="https://madist.github.io/2017/06/27/home/thumbnail.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/06/27/home/">
+                            <h3 class="media-heading">Stay Hunger, Stay Foolish</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jun 27, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="지금의-나는"><a href="#지금의-나는" class="headerlink" title="지금의 나는"></a>지금의 나는</h3><p>니체를 만나고, 김훈을 만나며 내 스스로는 많이 변해왔다.<br>그져 공부를 안하기 위해 애썼던 나의 10대 유년기시절. 요슈타인 가아더는 내 삶의 등불이었다.<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/07/04/UITableView-AutoLayout/">
+                            <img class="media-image" src="https://madist.github.io/2017/07/04/UITableView-AutoLayout/thumbnail.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/07/04/UITableView-AutoLayout/">
+                            <h3 class="media-heading">Swift AutoLayout - Flexible UITableViewCell</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>UITableView 를 사용하는데 있어서, 그동안 코딩으로 가변형 처리를 해왔다.<br>그러나, 이번에 UITableViewCell 의 <code>AutoLayout</code>을 이용하면 보다 편리하게 처리할 수 있다는 것을 알게 되어 몇글자 적어본다.<br>모든 시작에 앞어, <code>AutoLayout</code> 에 대해서 먼저 짚고 넘어간다.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/07/07/MENS-Stack/">
+                            <h3 class="media-heading">MENS Stack</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 7, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>여러가지 서버 스택이 있겠지만, 그 중 해보고 싶었던 MEAN Stack 을 응용하여 API 서버를 작성하였다.<br>내가 작업할 MENS Stack 은 다음과 같다.</p>
+<blockquote>
+<p>M (MongoDB) : NoSQL 데이터베이스이다. 도큐먼트 기반의 데이터베이스로, JSON 형태의 스킴을 작성할 것이다.<br>E (Express.js) : 미들 웨어 작성을 위해 사용할 프레임웍이다.<br>N (Node.js) : Javascript 기반의 서버사이드 언어이다.<br>S (Socket.io) : 실시간 서버에서 사용할 웹소켓이다.</p>
+</blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/09/09/OracleDB-Tips/">
+                            <h3 class="media-heading">OracleDB Tips</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Sep 9, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>오라클 디비를 사용하면서 알게된 부분들을 간단하게 정리하였습니다.<br>비록 오라클DB를 많이 접할 기회는 없지만, 오라를DB를 사용하게 될 때마다 기록할 예정입니다.<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2018/05/29/Spring AOP/">
+                            <h3 class="media-heading">Spring AOP</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 29, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>최근들어 Spring Boot 라는 프레임웍을 사용하여 프로젝트를 진행하고 있다. 그 중 AOP (Aspect Orient Programming) 라는 관점지향프로그래밍에 대해 알게 된부분들에 대해 정리하고자 한다. 다만, 이번 정리에는 gradle 기반의 AOP 에 대해 정리한다. xml 등을 이용하여 AOP 를 적용하지 않는다.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2018/06/06/Hbase-Shell/">
+                            <h3 class="media-heading">Hbase - Shell Command</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jun 6, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Summary of Hbase Commands<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                6 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-yhuo2grt8r7qkqumzgjoglkfbicl1thukjgmla6jopu56zpcowfedi5zjcor.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://madist.github.io/2017/07/07/MENS-Stack/';
+                 
+                    this.page.identifier = '2017/07/07/MENS-Stack/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'madist-github-io';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('ZC6SVGVHUX', 'c9af53741dc462dc3f87c2fa82e6896c');
+        var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script>
+
+    </body>
+</html>

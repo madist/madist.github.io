@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="naver-site-verification" content="504dae6cdfc6d7f71a626347627a0c3653cf9827"/>
+    <meta name="generator" content="Reality">
+    <title>Swift AutoLayout - Flexible UITableViewCell - Reality</title>
+    <meta name="author" content="GiPyeong.Lee">
+    
+        <meta name="keywords" content="gipyeong,이기평,gipyeong.lee,">
+    
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="UITableView 를 사용하는데 있어서, 그동안 코딩으로 가변형 처리를 해왔다.그러나, 이번에 UITableViewCell 의 AutoLayout을 이용하면 보다 편리하게 처리할 수 있다는 것을 알게 되어 몇글자 적어본다.모든 시작에 앞어, AutoLayout 에 대해서 먼저 짚고 넘어간다.">
+<meta name="keywords" content="UITableView,AutoLayout,Swift">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Swift AutoLayout - Flexible UITableViewCell">
+<meta property="og:url" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/index.html">
+<meta property="og:site_name" content="Reality">
+<meta property="og:description" content="UITableView 를 사용하는데 있어서, 그동안 코딩으로 가변형 처리를 해왔다.그러나, 이번에 UITableViewCell 의 AutoLayout을 이용하면 보다 편리하게 처리할 수 있다는 것을 알게 되어 몇글자 적어본다.모든 시작에 앞어, AutoLayout 에 대해서 먼저 짚고 넘어간다.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/layout_view.png">
+<meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/layout_constraints.png">
+<meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/tableCell.png">
+<meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/view_top.png">
+<meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/view_flexible.png">
+<meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/result.png">
+<meta property="og:updated_time" content="2018-06-06T06:43:29.593Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift AutoLayout - Flexible UITableViewCell">
+<meta name="twitter:description" content="UITableView 를 사용하는데 있어서, 그동안 코딩으로 가변형 처리를 해왔다.그러나, 이번에 UITableViewCell 의 AutoLayout을 이용하면 보다 편리하게 처리할 수 있다는 것을 알게 되어 몇글자 적어본다.모든 시작에 앞어, AutoLayout 에 대해서 먼저 짚고 넘어간다.">
+<meta name="twitter:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/layout_view.png">
+<meta name="twitter:creator" content="@OcSoonJ">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://madist.github.io/assets/images/avatar.jpg"/>
+    
+    
+        <meta property="og:image" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/thumbnail.png"/>
+        <meta class="swiftype" name="image" data-type="enum" content="https://madist.github.io/2017/07/04/UITableView-AutoLayout/thumbnail.png" />
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-1udptkpril81ozu8ifd8zpujn7ipu7lefxsiu5gxx0dpnzntdx6dusvki3ao.min.css">
+    <!--STYLES END-->
+    
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-103241267-1']);
+        _gaq.push(['_trackPageview']);
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Reality</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">GiPyeong.Lee</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>Stay Hunger,Stay Foolish</p>
+</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/atom.xml"
+                            
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                        <span class="sidebar-button-desc">RSS</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-center">
+    
+        <h1 class="post-title" itemprop="headline">
+            Swift AutoLayout - Flexible UITableViewCell
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2017-07-04T11:15:33+09:00">
+	
+		    Jul 04, 2017
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/AuotoLayout/">AuotoLayout</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <!-- excerpt -->
+<h2 id="AutoLayout-이란"><a href="#AutoLayout-이란" class="headerlink" title="AutoLayout 이란?"></a>AutoLayout 이란?</h2><p><code>AutoLayout</code>의 경우 <span class="highlight-text primary">Apple Documents</span> 를 참조하면 다음과 같다.
+
+<figure class="codeblock codeblock--tabbed"><figcaption><a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853-CH7-SW1" target="_blank" rel="noopener">AutoLayout</a><ul class="tabs"><li class="tab active">ko</li><li class="tab">en</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">오토레이아웃</span><br><span class="line">오토레이아웃은 뷰계층에 포함된 모든 뷰들의 사이즈와 위치를 각 뷰들에 설정되어 있는 제약사항들을 기반으로 즉시 계산한다.</span><br><span class="line">예를 들면, 버튼을 이미지뷰의 가로 중앙에 놓고, 이미지뷰 아래쪽 8포인트로 제약을 설정해 두면, 이미지뷰의 사이즈와 위치가 변경될 경우, 버튼의 위치가 자동으로 제약사항에 맞게 프레임이 조정된다.</span><br><span class="line">이러한 제약사항을 통해 내부적, 외부적 변경 사항에 따른 `동적으로 변경되는 UI`를 작성할 수 있다.</span><br></pre></td></tr></tbody></table></figure><figure class="highlight plain" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Understanding Auto Layout</span><br><span class="line">Auto Layout dynamically calculates the size and position of all the views in your view hierarchy, based on constraints placed on those views. For example, you can constrain a button so that it is horizontally centered with an Image view and so that the button’s top edge always remains 8 points below the image’s bottom. If the image view’s size or position changes, the button’s position automatically adjusts to match.</span><br><span class="line"></span><br><span class="line">This constraint-based approach to design allows you to build user interfaces that dynamically respond to both internal and external changes.</span><br></pre></td></tr></tbody></table></figure></div></figure>
+
+위에서 말한 <span class="highlight-text red">외부적 변화</span> 와 <span class="highlight-text blue">내부적 변화</span>은 다음과 같다.</p>
+<figure class="codeblock codeblock--tabbed"><figcaption><a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853-CH7-SW1" target="_blank" rel="noopener">External Changes</a><ul class="tabs"><li class="tab active">ko</li><li class="tab">en</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">외부적 변화</span><br><span class="line">- 윈도우 크기 조절 (OS X).</span><br><span class="line">- 유저가 iPad 상에서 Split View 진입 혹은 나갈 경우 (iOS).</span><br><span class="line">- 기기 회전시 (iOS).</span><br><span class="line">- 전화 혹은 오디오 레코딩 바가 생기거나 사라질 경우 (iOS).</span><br><span class="line">- 별도의 사이즈 클래스 지원시.</span><br><span class="line">- 멀티 해상도 지원시.</span><br></pre></td></tr></tbody></table></figure><figure class="highlight plain" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">External Changes</span><br><span class="line">- The user resizes the window (OS X).</span><br><span class="line">- The user enters or leaves Split View on an iPad (iOS).</span><br><span class="line">- The device rotates (iOS).</span><br><span class="line">- The active call and audio recording bars appear or disappear (iOS).</span><br><span class="line">- You want to support different size classes.</span><br><span class="line">- You want to support different screen sizes.</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<figure class="codeblock codeblock--tabbed"><figcaption><a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853-CH7-SW1" target="_blank" rel="noopener">Internal Changes</a><ul class="tabs"><li class="tab active">ko</li><li class="tab">en</li></ul></figcaption><div class="tabs-content"><figure class="highlight plain" style="display: block;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">내부적 변화</span><br><span class="line">- 앱내 뷰 계층에 들어갈 텍스트 혹은 이미지와 같은 컨텐츠에 변화가 생길 경우</span><br><span class="line">- 로컬화에 따른 변화</span><br><span class="line">    - 첫번째, 언어에 따라 뷰들의 크기가 달라짐.</span><br><span class="line">    - 두번째, 날짜,숫자,통화 등의 경우 지역별로 표현방식이 달라 뷰들의 크기가 달라짐.</span><br><span class="line">    - 세번째, 언어에 따라 배치 방향이 다름</span><br><span class="line">      (`English` left-to-right / `Arabic` right-to-left)</span><br><span class="line">- 앱 실행중 폰트가 Dynamic Type 의 경우</span><br></pre></td></tr></tbody></table></figure><figure class="highlight plain" style="display: none;"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Internal Changes</span><br><span class="line">- The content displayed by the app changes.</span><br><span class="line">- The app supports internationalization.</span><br><span class="line">- The app supports Dynamic Type (iOS).</span><br></pre></td></tr></tbody></table></figure></div></figure>
+<p>개략적인 오토레이 아웃에 대한 내용은 위와 같다. 보다 더 자세한 사항은 <a href="https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853-CH7-SW1" target="_blank" rel="noopener">애플의 도큐먼트</a>를 참조하면 된다.</p>
+<p>아래는 두 가지 레이아웃 방식이다.<br>좌측이 제약사항 없이 사용하던 프레임 레이아웃 방식이고, 우측이 제약사항 레이아웃 방식이다.</p>
+<div class="figure fig-25" style="width:288px;"><a class="fancybox" href="layout_view.png" title="Layout View Style" data-fancybox-group="layout_style"><img class="fig-img" src="layout_view.png" style="width:288px;height:370px;" alt="Layout View Style"></a><span class="caption">Layout View Style</span></div>
+<div class="figure fig-25" style="width:288px;"><a class="fancybox" href="layout_constraints.png" title="Layout Constrain Style" data-fancybox-group="layout_style"><img class="fig-img" src="layout_constraints.png" style="width:288px;height:370px;" alt="Layout Constrain Style"></a><span class="caption">Layout Constrain Style</span></div><div style="clear:both;"></div>
+<p>위의 제약사항 레이아웃을 이용하여 유동적으로 변하는 테이블뷰셀을 만들 수 있었다.</p>
+<blockquote>
+<p>원칙</p>
+<ol>
+<li>좌,우,위,아래 제약사항이 명확히 걸려있어야한다.</li>
+<li>넓이, 높이의 제약사항이 명확해야한다.</li>
+<li>위에서부터 아래까지 물흐르듯이 뷰계층들의 제약이 잘 걸려있어야한다.</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">self.tableView.rowHeight = UITableViewAutomaticDimension // 필수 </span><br><span class="line">self.tableView.estimatedRowHeight = 80 // (평균높이)</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>위의 원칙을 지키고 작업을 하면 잘 작동한다.<br>아래는 위의 원칙을 지키고 작업한 테이블뷰 셀의 제약사항이다.</p>
+<div class="figure center" style="width:824px;"><a class="fancybox" href="tableCell.png" title="Flexible TableViewCell" data-fancybox-group="flexible_tbcell"><img class="fig-img" src="tableCell.png" style="width:824px;height:228px;" alt="Flexible TableViewCell"></a><span class="caption">Flexible TableViewCell</span></div><div style="clear:both;"></div>
+<div class="figure fig-50" style="width:283px;"><a class="fancybox" href="view_top.png" title="제약사항의 가장 위쪽에 위치한 뷰의 제약사항" data-fancybox-group="flexible_tbcell"><img class="fig-img" src="view_top.png" style="width:283px;height:510px;" alt="제약사항의 가장 위쪽에 위치한 뷰의 제약사항"></a><span class="caption">제약사항의 가장 위쪽에 위치한 뷰의 제약사항</span></div>
+<div class="figure fig-50" style="width:288px;"><a class="fancybox" href="view_flexible.png" title="실제 텍스트가 늘어났다 줄었다 하는 라벨 입니다" data-fancybox-group="flexible_tbcell"><img class="fig-img" src="view_flexible.png" style="width:288px;height:456px;" alt="실제 텍스트가 늘어났다 줄었다 하는 라벨 입니다"></a><span class="caption">실제 텍스트가 늘어났다 줄었다 하는 라벨 입니다</span></div><div style="clear:both;"></div>
+<p>위의 제약사항들로 만들어진 결과물은 다음과 같다.<br>텍스트가 길어져도, 혹은 짧아저도 걸어둔 제약사항을 이용하여 유동적으로 변하는 테이블뷰를 만들 수 있다.</p>
+<div class="figure center" style="width:321px;"><a class="fancybox" href="result.png" title="위의 제약사항의 결과물입니다." data-fancybox-group="flexible_result"><img class="fig-img" src="result.png" style="width:321px;height:317px;" alt="위의 제약사항의 결과물입니다."></a><span class="caption">위의 제약사항의 결과물입니다.</span></div><div style="clear:both;"></div>
+<p>위의 결과물을 만들기 위해 참조 하였던 <a href="self_sizing.zip">소스코드</a>를 공유합니다.</p>
+<blockquote>
+<p>Stay Huger, Stay Foolish</p>
+</blockquote>
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/AutoLayout/">AutoLayout</a> <a class="tag tag--primary tag--small t-link" href="/tags/Swift/">Swift</a> <a class="tag tag--primary tag--small t-link" href="/tags/UITableView/">UITableView</a>
+
+            </div>
+        
+        
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2018 GiPyeong.Lee. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/avatar.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">GiPyeong.Lee</h4>
+        
+            <div id="about-card-bio"><p>Stay Hunger,Stay Foolish</p>
+</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>Line Plus Developer</p>
+
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Seoul Korea
+            </div>
+        
+    </div>
+</div>
+
+        <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/06/27/home/">
+                            <img class="media-image" src="https://madist.github.io/2017/06/27/home/thumbnail.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/06/27/home/">
+                            <h3 class="media-heading">Stay Hunger, Stay Foolish</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jun 27, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="지금의-나는"><a href="#지금의-나는" class="headerlink" title="지금의 나는"></a>지금의 나는</h3><p>니체를 만나고, 김훈을 만나며 내 스스로는 많이 변해왔다.<br>그져 공부를 안하기 위해 애썼던 나의 10대 유년기시절. 요슈타인 가아더는 내 삶의 등불이었다.<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-left">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/07/04/UITableView-AutoLayout/">
+                            <img class="media-image" src="https://madist.github.io/2017/07/04/UITableView-AutoLayout/thumbnail.png" width="90" height="90"/>
+                        </a>
+                    </div>
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/07/04/UITableView-AutoLayout/">
+                            <h3 class="media-heading">Swift AutoLayout - Flexible UITableViewCell</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 4, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>UITableView 를 사용하는데 있어서, 그동안 코딩으로 가변형 처리를 해왔다.<br>그러나, 이번에 UITableViewCell 의 <code>AutoLayout</code>을 이용하면 보다 편리하게 처리할 수 있다는 것을 알게 되어 몇글자 적어본다.<br>모든 시작에 앞어, <code>AutoLayout</code> 에 대해서 먼저 짚고 넘어간다.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/07/07/MENS-Stack/">
+                            <h3 class="media-heading">MENS Stack</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jul 7, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>여러가지 서버 스택이 있겠지만, 그 중 해보고 싶었던 MEAN Stack 을 응용하여 API 서버를 작성하였다.<br>내가 작업할 MENS Stack 은 다음과 같다.</p>
+<blockquote>
+<p>M (MongoDB) : NoSQL 데이터베이스이다. 도큐먼트 기반의 데이터베이스로, JSON 형태의 스킴을 작성할 것이다.<br>E (Express.js) : 미들 웨어 작성을 위해 사용할 프레임웍이다.<br>N (Node.js) : Javascript 기반의 서버사이드 언어이다.<br>S (Socket.io) : 실시간 서버에서 사용할 웹소켓이다.</p>
+</blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2017/09/09/OracleDB-Tips/">
+                            <h3 class="media-heading">OracleDB Tips</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Sep 9, 2017
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>오라클 디비를 사용하면서 알게된 부분들을 간단하게 정리하였습니다.<br>비록 오라클DB를 많이 접할 기회는 없지만, 오라를DB를 사용하게 될 때마다 기록할 예정입니다.<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2018/05/29/Spring AOP/">
+                            <h3 class="media-heading">Spring AOP</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    May 29, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>최근들어 Spring Boot 라는 프레임웍을 사용하여 프로젝트를 진행하고 있다. 그 중 AOP (Aspect Orient Programming) 라는 관점지향프로그래밍에 대해 알게 된부분들에 대해 정리하고자 한다. 다만, 이번 정리에는 gradle 기반의 AOP 에 대해 정리한다. xml 등을 이용하여 AOP 를 적용하지 않는다.</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://madist.github.io/2018/06/06/Hbase-Shell/">
+                            <h3 class="media-heading">Hbase - Shell Command</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jun 6, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>Summary of Hbase Commands<br></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                6 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-yhuo2grt8r7qkqumzgjoglkfbicl1thukjgmla6jopu56zpcowfedi5zjcor.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'https://madist.github.io/2017/07/04/UITableView-AutoLayout/';
+                 
+                    this.page.identifier = '2017/07/04/UITableView-AutoLayout/';
+                 
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'madist-github-io';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('ZC6SVGVHUX', 'c9af53741dc462dc3f87c2fa82e6896c');
+        var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script>
+
+    </body>
+</html>
