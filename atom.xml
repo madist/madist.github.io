@@ -41,30 +41,6 @@
   </entry>
   
   <entry>
-    <title>Spring AOP</title>
-    <link href="https://madist.github.io/2018/05/29/Spring%20AOP/"/>
-    <id>https://madist.github.io/2018/05/29/Spring AOP/</id>
-    <published>2018-05-28T15:44:00.000Z</published>
-    <updated>2018-06-06T08:49:23.860Z</updated>
-    
-    <content type="html"><![CDATA[<!-- excerpt --><p>본 정리에서는 AspectJ에서 정의한 @Aspect 애노테이션 기반의 AOP구현을 진행하겠습니다.</p><blockquote><p>Stay Huger, Stay Foolish</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;최근들어 Spring Boot 라는 프레임웍을 사용하여 프로젝트를 진행하고 있다. 그 중 AOP (Aspect Orient Programming) 라는 관점지향프로그래밍에 대해 알게 된부분들에 대해 정리하고자 한다. 다만, 이번 정리에는 gradle 기반의 AOP 에 대해 정리한다. xml 등을 이용하여 AOP 를 적용하지 않는다.&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Server" scheme="https://madist.github.io/categories/Server/"/>
-    
-    
-      <category term="Spring" scheme="https://madist.github.io/tags/Spring/"/>
-    
-      <category term="AOP" scheme="https://madist.github.io/tags/AOP/"/>
-    
-  </entry>
-  
-  <entry>
     <title>OracleDB Tips</title>
     <link href="https://madist.github.io/2017/09/09/OracleDB-Tips/"/>
     <id>https://madist.github.io/2017/09/09/OracleDB-Tips/</id>
